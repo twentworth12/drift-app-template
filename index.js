@@ -98,10 +98,11 @@ function GetContactEmail(messageBody, conversationBody, emailAddress, conversati
 }
 
 
-// This is where your app will do something amazing, like call an API. You have everything you need to do something great in this function.
-// messageBody is the original message
-// converationBody is the entire conversation.
-// emailAddress is the email address of the person you are chatting with
+// This is where your app will do something amazing, like call an API.
+// You have everything you need to do something great in this function.
+// - messageBody is the original message
+// - converationBody is the entire conversation.
+// - emailAddress is the email address of the person you are chatting with
 function doSomething(messageBody, conversationBody, emailAddress, conversationId, orgId, callbackFn) {
 
     // This will pretty print the Drift conservation to the console. Uncomment if you want to see it.
