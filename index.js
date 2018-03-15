@@ -10,7 +10,7 @@ const DRIFT_TOKEN = process.env.BOT_API_TOKEN
 const CONVERSATION_API_BASE = 'https://driftapi.com/conversations'
 const CONTACT_API_BASE = 'https://driftapi.com/contacts'
 
-// Main
+// Listen for a new Drift message
 app.use(bodyParser.json())
 app.listen(process.env.PORT || 3000, () => console.log('drift-app-template listening on port 3000!'))
 app.post('/api', (req, res) => {
