@@ -59,7 +59,7 @@ function ReadConversation(messageBody, conversationBody, conversationId, orgId) 
     return getContactId(messageBody, conversationBody, conversationId, orgId, GetContactId);
 }
 
-// Get a contact ID from Drift. 
+// Get the contact ID from Drift. 
 // See https://devdocs.drift.com/docs/contact-model for the complete Contact Model
 function getContactId(messageBody, conversationBody, conversationId, orgId, callbackFn) {
   request
