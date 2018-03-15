@@ -19,39 +19,37 @@ function handleMessage(orgId, data) {
 // This is the slash command your app will use.
     if (messageBody.startsWith('/weather')) {
       console.log("Found a Drift slash command")
-      return getContactId(conversationId, orgId, GetContactId)
+      return getContactId(messageBody, conversationId, orgId, GetContactId)
     }
   }
 }
 
 
 // Get a contact ID from Drift. See https://devdocs.drift.com/docs/contact-model for the complete Contact Model
-function getContactId(conversationId, orgId, callbackFn) {
+function getContactId(messageBody, conversationId, orgId, callbackFn) {
   request
    .get(CONVERSATION_API_BASE + `${conversationId}`)
     .set('Content-Type', 'application/json')
     .set(`Authorization`, `bearer ${DRIFT_TOKEN}`)
    .end(function(err, res){
-       callbackFn(res.body.data.contactId, conversationId, orgId)
+       callbackFn(messageBody, res.body.data.contactId, conversationId, orgId)
      });
 }
 
 
-function GetContactId(contactId, conversationId, orgId) { 
-    return getContactEmail(contactId, conversationId, orgId, GetContactEmail);
+function GetContactId(messageBody, contactId, conversationId, orgId) { 
+    return getContactEmail(messageBody, contactId, conversationId, orgId, GetContactEmail);
 }
 
 // Get the email address from Drift
-function getContactEmail (contactId, conversationId, orgId, callbackFn) {
+function getContactEmail (messageBody, contactId, conversationId, orgId, callbackFn) {
 
 	request
 	  .get(CONTACT_API_BASE + `${contactId}`)
 	  .set(`Authorization`, `bearer ${DRIFT_TOKEN}`)
 	  .set('Content-Type', 'application/json')
 	  .end(function (err, res) {
-	  
-	  console.log("socialProfile Email is " + res.body.data.attributes.socialProfiles.email)
-	  
+	  	  
 	  if (typeof res.body.data.attributes.email != 'undefined') {
 	  	emailAddress = res.body.data.attributes.email
 	  	} else 
@@ -61,33 +59,33 @@ function getContactEmail (contactId, conversationId, orgId, callbackFn) {
 	  	 	}
 	  	 }	  	
 	  
-			callbackFn(emailAddress, conversationId, orgId)
+			callbackFn(messageBody, emailAddress, conversationId, orgId)
 		 });
 	}
 
-function GetContactEmail(emailAddress, conversationId, orgId) { 
-    return doWork(emailAddress, conversationId, orgId, DoSomething)
+function GetContactEmail(messageBody, emailAddress, conversationId, orgId) { 
+    return doSomething(messageBody, emailAddress, conversationId, orgId, DoSomething)
 }
-
 
 
 // This is where you'll 
-function doSomething(emailAddress, accessToken, conversationId, orgId, callbackFn) {
+function doSomething(messageBody, emailAddress, accessToken, conversationId, orgId, callbackFn) {
 	
-    callbackFn(emailAddress, conversationId, orgId)
+    var driftMessage = "Testing 1-2-3"	
+    callbackFn(driftMessage, conversationId, orgId)
 	
 }
 
-function DoSomething(body, conversationId, orgId, accessToken, existingAccount) {
-    return postMessage(body, conversationId, orgId, accessToken, existingAccount)
+function DoSomething(driftMessage, conversationId, orgId) {
+    return postMessage(driftMessage, conversationId, orgId)
 }
 
-function postMessage(body, conversationId, orgId) { 
+function postMessage(driftMessage, conversationId, orgId) { 
 
     // Here's a standard Private Note message format
     const message = {
     'orgId': orgId,
-    'body': body,
+    'body': driftMessage,
     'type': 'private_prompt',
     }
   
