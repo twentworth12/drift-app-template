@@ -15,6 +15,7 @@ app.use(bodyParser.json())
 app.listen(process.env.PORT || 3000, () => console.log('drift-app-template listening on port 3000!'))
 app.post('/api', (req, res) => {
   
+  // Here's a list of other possible message types https://devdocs.drift.com/docs/webhook-events-1
   if (req.body.type === 'new_message') {
     handleMessage(req.body.orgId, req.body.data);  
   }
@@ -25,7 +26,7 @@ app.post('/api', (req, res) => {
 // Handle a new message from Drift. See https://devdocs.drift.com/docs/message-model for a list of all of the possible message types.
 function handleMessage(orgId, data) {
 	
-  // Only look for Drift Private Notes
+  // Only look for Drift Private Notes.
   if (data.type === 'private_note') {
     const messageBody = data.body
     const conversationId = data.conversationId
