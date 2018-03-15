@@ -27,7 +27,7 @@ function handleMessage(orgId, data) {
 }
 
 // Get the entire Drift converation in case we need it
-function readConveration (messageBody, conversationId, orgId, callbackFn) {
+function readConversation (messageBody, conversationId, orgId, callbackFn) {
 	request
 	  .get(CONVERSATION_API_BASE + `${conversationId}` + "/messages/")
 	  .set(`Authorization`, `bearer ${DRIFT_TOKEN}`)
