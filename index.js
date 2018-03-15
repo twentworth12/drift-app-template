@@ -68,7 +68,7 @@ function GetContactEmail(messageBody, emailAddress, conversationId, orgId) {
 // This is where your app will do something. You have the complete Drift message (messageBody) and the user's email address
 function doSomething(messageBody, emailAddress, conversationId, orgId, callbackFn) {
 
-    console.log("Here are the contents of the Drift converation: " + JSON.Stringify(messagebody))
+    console.log("Here are the contents of the Drift converation: " + JSON.Stringify(messageBody))
    
     var driftMessage = "Testing 1-2-3"
     
@@ -114,7 +114,7 @@ function postMessage(driftMessage, conversationId, orgId) {
     .set(`Authorization`, `bearer ${DRIFT_TOKEN}`)
     .send(message)
     .catch(err => console.log(err))
-    return    
+    return
 }
 
 app.use(bodyParser.json())
