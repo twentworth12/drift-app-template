@@ -95,8 +95,11 @@ function GetContactEmail(messageBody, conversationBody, emailAddress, conversati
 // This is where your app will do something. You have the complete Drift message (messageBody) and the user's email address
 function doSomething(messageBody, conversationBody, emailAddress, conversationId, orgId, callbackFn) {
 
-    console.log("Here are the contents of the Drift conversation: " + JSON.stringify(conversationBody, null, 2))
-    var driftMessage = "Testing 1-2-3"
+    // This will pretty print the Drift conservation to the console. Uncomment if you want to see it.
+    // console.log("Here are the contents of the Drift conversation: " + JSON.stringify(conversationBody, null, 2))
+	
+    // Here's the message you want to see back to Drift. Note it can include limited HTML like <b>, <em>, and <a>.	
+    var driftMessage = "<b>My First Drift App!"</b>"
     callbackFn(driftMessage, conversationId, orgId)
 }
 
@@ -131,7 +134,7 @@ function postMessage(driftMessage, conversationId, orgId) {
     },]
    } */ 
   
-    
+    // Send the message!
     request
     .post(CONVERSATION_API_BASE + `/${conversationId}/messages`)
     .set('Content-Type', 'application/json')
@@ -140,5 +143,4 @@ function postMessage(driftMessage, conversationId, orgId) {
     .catch(err => console.log(err))
     return
 }
-
 })
