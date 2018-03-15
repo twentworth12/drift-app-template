@@ -3,7 +3,8 @@ const app = express()
 const bodyParser = require('body-parser')
 const request = require('superagent');
 
-// Read the Drift token from Heroku. Don't put the Drift token in here like I did once because that would be bad.
+// Read the Drift token from Heroku.
+// Don't put the Drift token in here like I did once because that would be bad.
 const DRIFT_TOKEN = process.env.BOT_API_TOKEN
 
 // Set the Drift API endpoints so we can use them later.
@@ -23,7 +24,8 @@ app.post('/api', (req, res) => {
   return res.send('ok')
 
 
-// Handle a new message from Drift. See https://devdocs.drift.com/docs/message-model for a list of all of the possible message types.
+// Handle a new message from Drift. 
+// See https://devdocs.drift.com/docs/message-model for a list of all of the possible message types.
 function handleMessage(orgId, data) {
 	
   // Only look for Drift Private Notes.
@@ -56,7 +58,8 @@ function ReadConversation(messageBody, conversationBody, conversationId, orgId) 
     return getContactId(messageBody, conversationBody, conversationId, orgId, GetContactId);
 }
 
-// Get a contact ID from Drift. See https://devdocs.drift.com/docs/contact-model for the complete Contact Model
+// Get a contact ID from Drift. 
+// See https://devdocs.drift.com/docs/contact-model for the complete Contact Model
 function getContactId(messageBody, conversationBody, conversationId, orgId, callbackFn) {
   request
    .get(CONVERSATION_API_BASE + `${conversationId}`)
@@ -94,13 +97,17 @@ function GetContactEmail(messageBody, conversationBody, emailAddress, conversati
 }
 
 
-// This is where your app will do something. You have the complete Drift message (messageBody) and the user's email address
+// This is where your app will do something amazing, like call an API. You have everything you need to do something great in this function.
+// messageBody is the original message
+// converationBody is the entire conversation.
+// emailAddress is the email address of the person you are chatting with
 function doSomething(messageBody, conversationBody, emailAddress, conversationId, orgId, callbackFn) {
 
     // This will pretty print the Drift conservation to the console. Uncomment if you want to see it.
     // console.log("Here are the contents of the Drift conversation: " + JSON.stringify(conversationBody, null, 2))
 	
-    // Here's the message you want to see back to Drift. Note it can include limited HTML like <b>, <em>, and <a>.	
+    // Here's the message you want to see back to Drift. Note it can include limited HTML like <b>, <em>, and <a>.
+    // Do your cool stuff and then set the driftMessage variable.
     var driftMessage = "<b>My First Drift App!</b>"
     callbackFn(driftMessage, conversationId, orgId)
 }
@@ -110,7 +117,8 @@ function DoSomething(driftMessage, conversationId, orgId) {
     return postMessage(driftMessage, conversationId, orgId)
 }
 
-// Send the message to Drift. See https://devdocs.drift.com/docs/creating-a-message for complete documentation 
+// Send the message to Drift.
+// See https://devdocs.drift.com/docs/creating-a-message for complete documentation 
 function postMessage(driftMessage, conversationId, orgId) { 
 
     // Here's the format for a simple Drift Private Note
@@ -136,7 +144,7 @@ function postMessage(driftMessage, conversationId, orgId) {
     },]
    } */ 
   
-    // Send the message!
+    // Send the Drift message. Finally!
     request
     .post(CONVERSATION_API_BASE + `/${conversationId}/messages`)
     .set('Content-Type', 'application/json')
