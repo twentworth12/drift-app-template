@@ -33,33 +33,33 @@ function readConveration (messageBody, conversationId, orgId, callbackFn) {
 	  .set(`Authorization`, `bearer ${DRIFT_TOKEN}`)
 	  .set('Content-Type', 'application/json')
 	  .end(function (err, res) {
-		return googleThat(conversationId, orgId, GoogleThat, messageBody)
+		callbackFn(messageBody, res.body.data, conversationId, orgId,)
 	   });
 }
 
 // Callback Function
-function ReadConveration(messageBody, contactId, conversationId, orgId) { 
-    return getContactId(messageBody, contactId, conversationId, orgId, GetContactId);
+function ReadConversation(messageBody, conversationBody, contactId, conversationId, orgId) { 
+    return getContactId(messageBody, conversationBody, contactId, conversationId, orgId, GetContactId);
 }
 
 // Get a contact ID from Drift. See https://devdocs.drift.com/docs/contact-model for the complete Contact Model
-function getContactId(messageBody, conversationId, orgId, callbackFn) {
+function getContactId(messageBody, conversationBody, conversationId, orgId, callbackFn) {
   request
    .get(CONVERSATION_API_BASE + `${conversationId}`)
     .set('Content-Type', 'application/json')
     .set(`Authorization`, `bearer ${DRIFT_TOKEN}`)
    .end(function(err, res){
-       callbackFn(messageBody, res.body.data.contactId, conversationId, orgId)
+       callbackFn(messageBody, conversationBody, res.body.data.contactId, conversationId, orgId)
      });
 }
 
 // Callback Function
-function GetContactId(messageBody, contactId, conversationId, orgId) { 
-    return getContactEmail(messageBody, contactId, conversationId, orgId, GetContactEmail);
+function GetContactId(messageBody, conversationBody, contactId, conversationId, orgId) { 
+    return getContactEmail(messageBody, conversationBody, contactId, conversationId, orgId, GetContactEmail);
 }
 
 // Get the email address of the person we're speaking to from Drift
-function getContactEmail (messageBody, contactId, conversationId, orgId, callbackFn) {
+function getContactEmail (messageBody, conversationBody, contactId, conversationId, orgId, callbackFn) {
 
 	request
 	  .get(CONTACT_API_BASE + `${contactId}`)
@@ -70,20 +70,20 @@ function getContactEmail (messageBody, contactId, conversationId, orgId, callbac
 	  if (typeof res.body.data.attributes.email != 'undefined') {
 	  	emailAddress = res.body.data.attributes.email
 	  	}	  	
-		callbackFn(messageBody, emailAddress, conversationId, orgId)
+		callbackFn(messageBody, conversationBody, emailAddress, conversationId, orgId)
 	  });
 }
 
 // Callback Function
-function GetContactEmail(messageBody, emailAddress, conversationId, orgId) { 
-    return doSomething(messageBody, emailAddress, conversationId, orgId, DoSomething)
+function GetContactEmail(messageBody, conversationBody, emailAddress, conversationId, orgId) { 
+    return doSomething(messageBody, conversationBody, emailAddress, conversationId, orgId, DoSomething)
 }
 
 
 // This is where your app will do something. You have the complete Drift message (messageBody) and the user's email address
-function doSomething(messageBody, emailAddress, conversationId, orgId, callbackFn) {
+function doSomething(messageBody, conversationBody, emailAddress, conversationId, orgId, callbackFn) {
 
-    console.log("Here are the contents of the Drift converation: " + JSON.stringify(messageBody))
+    console.log("Here are the contents of the Drift converation: " + JSON.stringify(conversationBody))
     var driftMessage = "Testing 1-2-3"
     callbackFn(driftMessage, conversationId, orgId)
 }
