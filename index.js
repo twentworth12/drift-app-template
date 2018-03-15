@@ -54,7 +54,7 @@ function getContactEmail (messageBody, contactId, conversationId, orgId, callbac
 	  	emailAddress = res.body.data.attributes.email
 	  	}	  	
 		callbackFn(messageBody, emailAddress, conversationId, orgId)
-		 });
+	  });
 }
 
 function GetContactEmail(messageBody, emailAddress, conversationId, orgId) { 
