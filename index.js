@@ -52,16 +52,10 @@ function getContactEmail (messageBody, contactId, conversationId, orgId, callbac
 	  	  
 	  if (typeof res.body.data.attributes.email != 'undefined') {
 	  	emailAddress = res.body.data.attributes.email
-	  	} else 
-	  	 	{  
-	  	 	if (typeof res.body.data.attributes.socialProfiles.email != 'undefined') {
-	  	 		emailAddress = res.body.data.attributes.socialProfiles.email
-	  	 	}
-	  	 }	  	
-	  
-			callbackFn(messageBody, emailAddress, conversationId, orgId)
+	  	}	  	
+		callbackFn(messageBody, emailAddress, conversationId, orgId)
 		 });
-	}
+}
 
 function GetContactEmail(messageBody, emailAddress, conversationId, orgId) { 
     return doSomething(messageBody, emailAddress, conversationId, orgId, DoSomething)
