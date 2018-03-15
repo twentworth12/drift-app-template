@@ -5,18 +5,20 @@ const request = require('superagent');
 
 const DRIFT_TOKEN = process.env.BOT_API_TOKEN
 
+// Set the Drift API endpoints so we can use them later.
 const CONVERSATION_API_BASE = 'https://driftapi.com/conversations'
 const CONTACT_API_BASE = 'https://driftapi.com/contacts'
 
+// Handle a new message from Drift. See https://devdocs.drift.com/docs/message-model for a list of all of the possible message types.
 function handleMessage(orgId, data) {
 	
-// Only look for Drift Private Notes. See https://devdocs.drift.com/docs/message-model for a list of all of the possible message types.
+  // Only look for Drift Private Notes
   if (data.type === 'private_note') {
     const messageBody = data.body
     const conversationId = data.conversationId
     
     
-// This is the slash command your app will use.
+    // This is the slash command your app will use. This can be anything you want. 
     if (messageBody.startsWith('/weather')) {
       console.log("Found a Drift slash command")
       return getContactId(messageBody, conversationId, orgId, GetContactId)
@@ -36,12 +38,12 @@ function getContactId(messageBody, conversationId, orgId, callbackFn) {
      });
 }
 
-
+// Callback Function
 function GetContactId(messageBody, contactId, conversationId, orgId) { 
     return getContactEmail(messageBody, contactId, conversationId, orgId, GetContactEmail);
 }
 
-// Get the email address from Drift
+// Get the email address of the person we're speaking to from Drift
 function getContactEmail (messageBody, contactId, conversationId, orgId, callbackFn) {
 
 	request
@@ -57,41 +59,62 @@ function getContactEmail (messageBody, contactId, conversationId, orgId, callbac
 	  });
 }
 
+// Callback Function
 function GetContactEmail(messageBody, emailAddress, conversationId, orgId) { 
     return doSomething(messageBody, emailAddress, conversationId, orgId, DoSomething)
 }
 
 
-// This is where your app will do something.
+// This is where your app will do something. You have the complete Drift message (messageBody) and the user's email address
 function doSomething(messageBody, emailAddress, conversationId, orgId, callbackFn) {
 
-    var driftMessage = "Testing 1-2-3"	
+    console.log("Here are the contents of the Drift converation: " + JSON.Stringify(messagebody))
+   
+    var driftMessage = "Testing 1-2-3"
+    
     callbackFn(driftMessage, conversationId, orgId)
 	
 }
 
+// Callback Function
 function DoSomething(driftMessage, conversationId, orgId) {
     return postMessage(driftMessage, conversationId, orgId)
 }
 
+// Send the message to Drift. See https://devdocs.drift.com/docs/creating-a-message for complete documentation 
 function postMessage(driftMessage, conversationId, orgId) { 
 
-    // Here's a standard Private Note message format
+    // Here's the format for a simple Drift Private Note
     const message = {
     'orgId': orgId,
     'body': driftMessage,
     'type': 'private_prompt',
     }
   
+  /* Here's a Drift Private Note with a single button
+  const message = {
+    'orgId': orgId,
+    'body': driftMessage,
+    'type': 'private_prompt',
+    'buttons': [{
+      'label': 'Send This Result',
+      'value': body,
+      'type': 'reply',
+      'style': 'primary',
+      'reaction': {
+	'type': 'delete'
+      }
+    },]
+   } */ 
+  
     
-    // Send the message to Drift. See https://devdocs.drift.com/docs/creating-a-message for complete documentation 
     request
     .post(CONVERSATION_API_BASE + `/${conversationId}/messages`)
     .set('Content-Type', 'application/json')
     .set(`Authorization`, `bearer ${DRIFT_TOKEN}`)
     .send(message)
     .catch(err => console.log(err))
-       
+    return    
 }
 
 app.use(bodyParser.json())
