@@ -3,6 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const request = require('superagent');
 
+// Read the Drift token from Heroku. Don't put the Drift token in here like I did once because that would be bad.
 const DRIFT_TOKEN = process.env.BOT_API_TOKEN
 
 // Set the Drift API endpoints so we can use them later.
