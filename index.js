@@ -16,7 +16,8 @@ app.use(bodyParser.json())
 app.listen(process.env.PORT || 3000, () => console.log('drift-app-template listening on port 3000!'))
 app.post('/api', (req, res) => {
   
-  // Here's a list of other possible message types https://devdocs.drift.com/docs/webhook-events-1
+  // Here's a list of other possible message types
+  // https://devdocs.drift.com/docs/webhook-events-1
   if (req.body.type === 'new_message') {
     handleMessage(req.body.orgId, req.body.data);  
   }
