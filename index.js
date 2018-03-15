@@ -101,7 +101,7 @@ function doSomething(messageBody, conversationBody, emailAddress, conversationId
     // console.log("Here are the contents of the Drift conversation: " + JSON.stringify(conversationBody, null, 2))
 	
     // Here's the message you want to see back to Drift. Note it can include limited HTML like <b>, <em>, and <a>.	
-    var driftMessage = "<b>My First Drift App!"</b>"
+    var driftMessage = "<b>My First Drift App!</b>"
     callbackFn(driftMessage, conversationId, orgId)
 }
 
