@@ -69,11 +69,8 @@ function GetContactEmail(messageBody, emailAddress, conversationId, orgId) {
 function doSomething(messageBody, emailAddress, conversationId, orgId, callbackFn) {
 
     console.log("Here are the contents of the Drift converation: " + JSON.stringify(messageBody))
-   
     var driftMessage = "Testing 1-2-3"
-    
     callbackFn(driftMessage, conversationId, orgId)
-	
 }
 
 // Callback Function
