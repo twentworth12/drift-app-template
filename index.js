@@ -38,8 +38,8 @@ function readConversation (messageBody, conversationId, orgId, callbackFn) {
 }
 
 // Callback Function
-function ReadConversation(messageBody, conversationBody, contactId, conversationId, orgId) { 
-    return getContactId(messageBody, conversationBody, contactId, conversationId, orgId, GetContactId);
+function ReadConversation(messageBody, conversationBody, conversationId, orgId) { 
+    return getContactId(messageBody, conversationBody, conversationId, orgId, GetContactId);
 }
 
 // Get a contact ID from Drift. See https://devdocs.drift.com/docs/contact-model for the complete Contact Model
