@@ -68,7 +68,7 @@ function GetContactEmail(messageBody, emailAddress, conversationId, orgId) {
 // This is where your app will do something. You have the complete Drift message (messageBody) and the user's email address
 function doSomething(messageBody, emailAddress, conversationId, orgId, callbackFn) {
 
-    console.log("Here are the contents of the Drift converation: " + JSON.Stringify(messageBody))
+    console.log("Here are the contents of the Drift converation: " + JSON.stringify(messageBody))
    
     var driftMessage = "Testing 1-2-3"
     
