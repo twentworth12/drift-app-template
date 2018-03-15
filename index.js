@@ -63,7 +63,7 @@ function GetContactEmail(messageBody, emailAddress, conversationId, orgId) {
 
 
 // This is where your app will do something.
-function doSomething(messageBody, emailAddress, accessToken, conversationId, orgId, callbackFn) {
+function doSomething(messageBody, emailAddress, conversationId, orgId, callbackFn) {
 
     var driftMessage = "Testing 1-2-3"	
     callbackFn(driftMessage, conversationId, orgId)
