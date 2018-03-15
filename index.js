@@ -21,11 +21,26 @@ function handleMessage(orgId, data) {
     // This is the slash command your app will use. This can be anything you want. 
     if (messageBody.startsWith('/weather')) {
       console.log("Found a Drift slash command")
-      return getContactId(messageBody, conversationId, orgId, GetContactId)
+      return readConversation(messageBody, conversationId, orgId, ReadConversation)
     }
   }
 }
 
+// Get the entire Drift converation in case we need it
+function readConveration (messageBody, conversationId, orgId, callbackFn) {
+	request
+	  .get(CONVERSATION_API_BASE + `${conversationId}` + "/messages/")
+	  .set(`Authorization`, `bearer ${DRIFT_TOKEN}`)
+	  .set('Content-Type', 'application/json')
+	  .end(function (err, res) {
+		return googleThat(conversationId, orgId, GoogleThat, messageBody)
+	   });
+}
+
+// Callback Function
+function ReadConveration(messageBody, contactId, conversationId, orgId) { 
+    return getContactId(messageBody, contactId, conversationId, orgId, GetContactId);
+}
 
 // Get a contact ID from Drift. See https://devdocs.drift.com/docs/contact-model for the complete Contact Model
 function getContactId(messageBody, conversationId, orgId, callbackFn) {
