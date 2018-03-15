@@ -9,6 +9,18 @@ const DRIFT_TOKEN = process.env.BOT_API_TOKEN
 const CONVERSATION_API_BASE = 'https://driftapi.com/conversations'
 const CONTACT_API_BASE = 'https://driftapi.com/contacts'
 
+// Main
+app.use(bodyParser.json())
+app.listen(process.env.PORT || 3000, () => console.log('drift-app-template listening on port 3000!'))
+app.post('/api', (req, res) => {
+  
+  if (req.body.type === 'new_message') {
+    handleMessage(req.body.orgId, req.body.data);  
+  }
+  
+  return res.send('ok')
+
+
 // Handle a new message from Drift. See https://devdocs.drift.com/docs/message-model for a list of all of the possible message types.
 function handleMessage(orgId, data) {
 	
@@ -83,7 +95,7 @@ function GetContactEmail(messageBody, conversationBody, emailAddress, conversati
 // This is where your app will do something. You have the complete Drift message (messageBody) and the user's email address
 function doSomething(messageBody, conversationBody, emailAddress, conversationId, orgId, callbackFn) {
 
-    console.log("Here are the contents of the Drift converation: " + JSON.stringify(conversationBody))
+    console.log("Here are the contents of the Drift conversation: " + JSON.stringify(conversationBody, null, 2))
     var driftMessage = "Testing 1-2-3"
     callbackFn(driftMessage, conversationId, orgId)
 }
@@ -129,13 +141,4 @@ function postMessage(driftMessage, conversationId, orgId) {
     return
 }
 
-app.use(bodyParser.json())
-app.listen(process.env.PORT || 3000, () => console.log('drift-app-template listening on port 3000!'))
-app.post('/api', (req, res) => {
-  
-  if (req.body.type === 'new_message') {
-    handleMessage(req.body.orgId, req.body.data);  
-  }
-  
-  return res.send('ok')
 })
