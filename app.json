@@ -1,5 +1,5 @@
 {
-  "name": "Salesforce Lookup",
-  "description": "Looks up a user in Salesforce and writes it to a Drift conversation",
-  "repository": "https://github.com/twentworth12/tw-drift"
+  "name": "drift-app-template",
+  "description": "A sample  template for building a Drift app",
+  "repository": "https://github.com/twentworth12/drift-app-template"
 }
