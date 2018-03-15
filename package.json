@@ -1,5 +1,5 @@
 {
-  "name": "salesforce-lookup",
+  "name": "drift-app-template",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-	"jsforce": "1.8.0",
     "body-parser": "1.18.2",
     "express": "4.16.2",
     "nodemon": "1.12.1",
