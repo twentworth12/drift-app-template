@@ -111,23 +111,12 @@ function doSomething(messageBody, conversationBody, emailAddress, conversationId
 	
     // Here's the message you want to see back to Drift. Note it can include limited HTML like <b>, <em>, and <a>.
     // Do your cool stuff and then set the driftMessage variable.
-    var driftMessage = "<b>My First Drift App!</b>"
-    callbackFn(driftMessage, conversationId, orgId)
-}
-
-// Callback Function
-function DoSomething(driftMessage, conversationId, orgId) {
-    return postMessage(driftMessage, conversationId, orgId)
-}
-
-// Send the message to Drift.
-// See https://devdocs.drift.com/docs/creating-a-message for complete documentation 
-function postMessage(driftMessage, conversationId, orgId) { 
-
+    var message = "<b>My First Drift App!</b>"
+    
     // Here's the format for a simple Drift Private Note
-    const message = {
+    const driftMessage = {
     'orgId': orgId,
-    'body': driftMessage,
+    'body': message,
     'type': 'private_prompt',
     }
   
@@ -146,6 +135,19 @@ function postMessage(driftMessage, conversationId, orgId) {
       }
     },]
    } */ 
+    
+    callbackFn(driftMessage, conversationId, orgId)
+}
+
+// Callback Function
+function DoSomething(driftMessage, conversationId, orgId) {
+    return postMessage(driftMessage, conversationId, orgId)
+}
+
+// Send the message to Drift.
+// See https://devdocs.drift.com/docs/creating-a-message for complete documentation 
+function postMessage(driftMessage, conversationId, orgId) { 
+
   
     // Send the Drift message. Finally!
     request
