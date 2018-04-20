@@ -154,7 +154,7 @@ function postMessage(driftMessage, conversationId, orgId) {
     .post(CONVERSATION_API_BASE + `/${conversationId}/messages`)
     .set('Content-Type', 'application/json')
     .set(`Authorization`, `bearer ${DRIFT_TOKEN}`)
-    .send(message)
+    .send(driftMessage)
     .catch(err => console.log(err))
     return
 }
